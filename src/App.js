@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+
+import * as Constants from './Constants'
+import GenSelection from './GenSelection'
 import EncounterButton from './EncounterButton'
 import EncountersLabel from './EncountersLabel'
+import OptionsSelection from './OptionsSelection'
 import ShinyOddsInfo from './ShinyOddsInfo'
 
 class App extends Component {
@@ -10,6 +14,11 @@ class App extends Component {
     super()
     this.state = {
       encounters: 0,
+      generation: Constants.Generation.GEN_2,
+      strategy: Constants.Strategy.BREEDING,
+      options: {
+        shinyDitto: false
+      },
     }
   }
   updateEncounters(delta) {
@@ -33,10 +42,25 @@ class App extends Component {
         <p className="App-intro">
           Use the counter below to track your encounters.
         </p>
+        <GenSelection onClick={(newGeneration) => this.setState({generation: newGeneration})}/>
+        <OptionsSelection
+          generation={this.state.generation}
+          strategy={this.state.strategy}
+          options={this.state.options}
+          updateStrategy={(newStrategy) => this.setState({strategy: newStrategy})}
+          updateOption={(key, value) => {
+            const newOptions = Object.assign({}, this.state.options)
+            newOptions[key] = value
+            this.setState({options: newOptions})
+          }} />
         <EncounterButton symbol="+" onClick={() => this.updateEncounters(1)} />
         <EncounterButton symbol="-" onClick={() => this.updateEncounters(-1)} />
         <EncountersLabel count={this.state.encounters} />
-        <ShinyOddsInfo count={this.state.encounters} />
+        <ShinyOddsInfo
+          count={this.state.encounters}
+          generation={this.state.generation}
+          strategy={this.state.strategy}
+          options={this.state.options} />
         <button onClick={() => this.resetEncounters()}>Reset Counter</button>
       </div>
     );
