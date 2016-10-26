@@ -21,8 +21,14 @@ class App extends Component {
       },
     }
   }
-  updateEncounters(delta) {
+  addEncounters(delta) {
     const newEncounters = Math.max(this.state.encounters + delta, 0)
+    this.setState({
+      encounters: newEncounters,
+    })
+  }
+  setEncounters(count) {
+    const newEncounters = Math.max(count, 0)
     this.setState({
       encounters: newEncounters,
     })
@@ -53,9 +59,9 @@ class App extends Component {
             newOptions[key] = value
             this.setState({options: newOptions})
           }} />
-        <EncounterButton symbol="+" onClick={() => this.updateEncounters(1)} />
-        <EncounterButton symbol="-" onClick={() => this.updateEncounters(-1)} />
-        <EncountersLabel count={this.state.encounters} />
+        <EncounterButton symbol="+" onClick={() => this.addEncounters(1)} />
+        <EncounterButton symbol="-" onClick={() => this.addEncounters(-1)} />
+        <EncountersLabel count={this.state.encounters} onChange={(count) => this.setEncounters(count)} />
         <ShinyOddsInfo
           count={this.state.encounters}
           generation={this.state.generation}
