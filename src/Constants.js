@@ -10,6 +10,7 @@ const Generation = {
 const Strategy = {
 	WILD_ENCOUNTER: 'WILD_ENCOUNTER',
 	BREEDING: 'BREEDING',
+	POKE_RADAR: 'POKE_RADAR',
 }
 
 export {

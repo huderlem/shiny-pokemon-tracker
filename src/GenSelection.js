@@ -7,6 +7,7 @@ function GenSelection(props) {
     <ul className="gen-selection">
       <button className="gen-2-selection" onClick={() => props.onClick(Constants.Generation.GEN_2)}>Gen. 2</button>
       <button className="gen-3-selection" onClick={() => props.onClick(Constants.Generation.GEN_3)}>Gen. 3</button>
+      <button className="gen-4-selection" onClick={() => props.onClick(Constants.Generation.GEN_4)}>Gen. 4</button>
     </ul>
   )
 }

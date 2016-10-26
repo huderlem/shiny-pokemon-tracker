@@ -13,7 +13,7 @@ class EncountersLabel extends Component {
     return (
       <div>
         <p className="encounters-label">Encounters:</p>
-        <input type="number" min="0" value={this.props.count} onChange={this.onChange.bind(this)} />
+        <input type="number" min="0" max="99999" value={this.props.count} onChange={this.onChange.bind(this)} />
       </div>
     )
   }

@@ -17,7 +17,8 @@ class App extends Component {
       generation: Constants.Generation.GEN_2,
       strategy: Constants.Strategy.BREEDING,
       options: {
-        shinyDitto: false
+        shinyDitto: false,
+        masudaMethod: false,
       },
     }
   }
