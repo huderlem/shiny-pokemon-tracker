@@ -19,6 +19,7 @@ class App extends Component {
       options: {
         shinyDitto: false,
         masudaMethod: false,
+        shinyCharm: false,
       },
     }
   }
