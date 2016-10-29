@@ -73,7 +73,7 @@ class App extends Component {
           generation={this.state.generation}
           strategy={this.state.strategy}
           options={this.state.options} />
-        <button onClick={() => this.resetEncounters()}>Reset Counter</button>
+        <button className="reset-counter" onClick={() => this.resetEncounters()}>Reset Counter</button>
       </div>
     );
   }
