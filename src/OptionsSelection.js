@@ -1,232 +1,99 @@
 import React, { Component } from 'react';
 
 import * as Constants from './Constants'
+import * as StrategyFactory from './StrategyFactory'
+import * as StrategyOptionFactory from './StrategyOptionFactory'
 
 class OptionsSelection extends Component {
+  renderStrategyOptions(options) {
+    return options.map((option, i) => StrategyOptionFactory.CreateStrategyOption(option, this.props.updateOption, this.props.options[option], i))
+  }
+  renderStrategies(strategies) {
+    return strategies.map((strategy, i) => StrategyFactory.CreateStrategy(strategy, this.props.updateStrategy, this.props.strategy, i)) 
+  }
   renderGen2Options() {
-    let options
+    let strategies = [
+      Constants.Strategy.WILD_ENCOUNTER,
+      Constants.Strategy.BREEDING,
+    ]
+    let strategyOptions = []
     if (this.props.strategy === Constants.Strategy.BREEDING) {
-      options = (
-        <div>
-          <input
-            onChange={() => {
-              const nextChecked = !this.props.options.shinyDitto
-              this.props.updateOption("shinyDitto", nextChecked)
-            }}
-            type="checkbox"
-            name="shiny-ditto-picker"
-            checked={this.props.options.shinyDitto} />
-            Shiny Ditto
-          <br />
-        </div>
-      )
+      strategyOptions.push(Constants.StrategyOption.SHINY_DITTO)
     }
 
     return (
       <div>
-        <input onChange={() => this.props.updateStrategy(Constants.Strategy.WILD_ENCOUNTER)}
-          type="radio"
-          name="strategy-picker"
-          value="Wild Encounter"
-          checked={this.props.strategy === Constants.Strategy.WILD_ENCOUNTER} />
-          Wild Encounter
-        <br />
-        <input onChange={() => this.props.updateStrategy(Constants.Strategy.BREEDING)}
-          type="radio"
-          name="strategy-picker"
-          value="Breeding"
-          checked={this.props.strategy === Constants.Strategy.BREEDING} />
-          Breeding
-        <br />
-        {options}
+        {this.renderStrategies(strategies)}
+        {this.renderStrategyOptions(strategyOptions)}
       </div>
     )
   }
   renderGen3Options() {
+    let strategies = [
+      Constants.Strategy.WILD_ENCOUNTER,
+      Constants.Strategy.BREEDING,
+    ]
+
     return (
       <div>
-        <input onChange={() => this.props.updateStrategy(Constants.Strategy.WILD_ENCOUNTER)}
-          type="radio"
-          name="strategy-picker"
-          value="Wild Encounter"
-          checked={this.props.strategy === Constants.Strategy.WILD_ENCOUNTER} />
-          Wild Encounter
-        <br />
-        <input onChange={() => this.props.updateStrategy(Constants.Strategy.BREEDING)}
-          type="radio"
-          name="strategy-picker"
-          value="Breeding"
-          checked={this.props.strategy === Constants.Strategy.BREEDING} />
-          Breeding
-        <br />
+        {this.renderStrategies(strategies)}
       </div>
     )
   }
   renderGen4Options() {
-    let options
+    let strategies = [
+      Constants.Strategy.WILD_ENCOUNTER,
+      Constants.Strategy.BREEDING,
+      Constants.Strategy.POKE_RADAR,
+    ]
+    let strategyOptions = []
     if (this.props.strategy === Constants.Strategy.BREEDING) {
-      options = (
-        <div>
-          <input
-            onChange={() => {
-              const nextChecked = !this.props.options.masudaMethod
-              this.props.updateOption("masudaMethod", nextChecked)
-            }}
-            type="checkbox"
-            name="masuda-method-picker"
-            checked={this.props.options.masudaMethod} />
-            Masuda Method
-          <br />
-        </div>
-      )
+      strategyOptions.push(Constants.StrategyOption.MASUDA_METHOD)
     }
 
     return (
       <div>
-        <input onChange={() => this.props.updateStrategy(Constants.Strategy.WILD_ENCOUNTER)}
-          type="radio"
-          name="strategy-picker"
-          value="Wild Encounter"
-          checked={this.props.strategy === Constants.Strategy.WILD_ENCOUNTER} />
-          Wild Encounter
-        <br />
-        <input onChange={() => this.props.updateStrategy(Constants.Strategy.BREEDING)}
-          type="radio"
-          name="strategy-picker"
-          value="Breeding"
-          checked={this.props.strategy === Constants.Strategy.BREEDING} />
-          Breeding
-        <br />
-        <input onChange={() => this.props.updateStrategy(Constants.Strategy.POKE_RADAR)}
-          type="radio"
-          name="strategy-picker"
-          value="Poké Radar"
-          checked={this.props.strategy === Constants.Strategy.POKE_RADAR} />
-          Poké Radar
-        <br />
-        {options}
+        {this.renderStrategies(strategies)}
+        {this.renderStrategyOptions(strategyOptions)}
       </div>
     )
   }
   renderGen5Options() {
-    let options = (
-      <div>
-        <input
-          onChange={() => {
-            const nextChecked = !this.props.options.shinyCharm
-            this.props.updateOption("shinyCharm", nextChecked)
-          }}
-          type="checkbox"
-          name="shiny-charm-picker"
-          checked={this.props.options.shinyCharm} />
-          Shiny Charm
-        <br />
-      </div>
-    )
-    let strategySpecificOptions
+    let strategies = [
+      Constants.Strategy.WILD_ENCOUNTER,
+      Constants.Strategy.BREEDING,
+    ]
+    let strategyOptions = [Constants.StrategyOption.SHINY_CHARM]
     if (this.props.strategy === Constants.Strategy.BREEDING) {
-      strategySpecificOptions = (
-        <div>
-          <input
-            onChange={() => {
-              const nextChecked = !this.props.options.masudaMethod
-              this.props.updateOption("masudaMethod", nextChecked)
-            }}
-            type="checkbox"
-            name="masuda-method-picker"
-            checked={this.props.options.masudaMethod} />
-            Masuda Method
-          <br />
-        </div>
-      )
+      strategyOptions.push(Constants.StrategyOption.MASUDA_METHOD)
     }
 
     return (
       <div>
-        <input onChange={() => this.props.updateStrategy(Constants.Strategy.WILD_ENCOUNTER)}
-          type="radio"
-          name="strategy-picker"
-          value="Wild Encounter"
-          checked={this.props.strategy === Constants.Strategy.WILD_ENCOUNTER} />
-          Wild Encounter
-        <br />
-        <input onChange={() => this.props.updateStrategy(Constants.Strategy.BREEDING)}
-          type="radio"
-          name="strategy-picker"
-          value="Breeding"
-          checked={this.props.strategy === Constants.Strategy.BREEDING} />
-          Breeding
-        <br />
-        {options}
-        {strategySpecificOptions}
+        {this.renderStrategies(strategies)}
+        {this.renderStrategyOptions(strategyOptions)}
       </div>
     )
   }
   renderGen6Options() {
-    let options = (
-      <div>
-        <input
-          onChange={() => {
-            const nextChecked = !this.props.options.shinyCharm
-            this.props.updateOption("shinyCharm", nextChecked)
-          }}
-          type="checkbox"
-          name="shiny-charm-picker"
-          checked={this.props.options.shinyCharm} />
-          Shiny Charm
-        <br />
-      </div>
-    )
-    let strategySpecificOptions
+    let strategies = [
+      Constants.Strategy.WILD_ENCOUNTER,
+      Constants.Strategy.BREEDING,
+      Constants.Strategy.POKE_RADAR,
+      Constants.Strategy.CHAIN_FISHING,
+      Constants.Strategy.FRIEND_SAFARI,
+    ]
+    let strategyOptions = [Constants.StrategyOption.SHINY_CHARM]
     if (this.props.strategy === Constants.Strategy.BREEDING) {
-      strategySpecificOptions = (
-        <div>
-          <input
-            onChange={() => {
-              const nextChecked = !this.props.options.masudaMethod
-              this.props.updateOption("masudaMethod", nextChecked)
-            }}
-            type="checkbox"
-            name="masuda-method-picker"
-            checked={this.props.options.masudaMethod} />
-            Masuda Method
-          <br />
-        </div>
-      )
+      strategyOptions.push(Constants.StrategyOption.MASUDA_METHOD)
+    } else if (this.props.strategy === Constants.Strategy.WILD_ENCOUNTER) {
+      strategyOptions.push(Constants.StrategyOption.HORDE_ENCOUNTER)
     }
 
     return (
       <div>
-        <input onChange={() => this.props.updateStrategy(Constants.Strategy.WILD_ENCOUNTER)}
-          type="radio"
-          name="strategy-picker"
-          value="Wild Encounter"
-          checked={this.props.strategy === Constants.Strategy.WILD_ENCOUNTER} />
-          Wild Encounter
-        <br />
-        <input onChange={() => this.props.updateStrategy(Constants.Strategy.BREEDING)}
-          type="radio"
-          name="strategy-picker"
-          value="Breeding"
-          checked={this.props.strategy === Constants.Strategy.BREEDING} />
-          Breeding
-        <br />
-        <input onChange={() => this.props.updateStrategy(Constants.Strategy.POKE_RADAR)}
-          type="radio"
-          name="strategy-picker"
-          value="Poké Radar"
-          checked={this.props.strategy === Constants.Strategy.POKE_RADAR} />
-          Poké Radar
-        <br />
-        <input onChange={() => this.props.updateStrategy(Constants.Strategy.CHAIN_FISHING)}
-          type="radio"
-          name="strategy-picker"
-          value="Chain Fishing"
-          checked={this.props.strategy === Constants.Strategy.CHAIN_FISHING} />
-          Chain Fishing
-        <br />
-        {options}
-        {strategySpecificOptions}
+        {this.renderStrategies(strategies)}
+        {this.renderStrategyOptions(strategyOptions)}
       </div>
     )
   }

@@ -12,15 +12,19 @@ import ShinyOddsInfo from './ShinyOddsInfo'
 class App extends Component {
   constructor() {
     super()
+    const optionsKeys = [
+      Constants.StrategyOption.SHINY_DITTO,
+      Constants.StrategyOption.MASUDA_METHOD,
+      Constants.StrategyOption.SHINY_CHARM,
+      Constants.StrategyOption.HORDE_ENCOUNTER,
+    ]
+    let optionsObj = {}
+    optionsKeys.forEach((key) => optionsObj[key] = false)
     this.state = {
       encounters: 0,
       generation: Constants.Generation.GEN_2,
       strategy: Constants.Strategy.BREEDING,
-      options: {
-        shinyDitto: false,
-        masudaMethod: false,
-        shinyCharm: false,
-      },
+      options: optionsObj,
     }
   }
   addEncounters(delta) {

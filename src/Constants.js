@@ -1,4 +1,3 @@
-
 const Generation = {
 	GEN_2: 'GEN_2',
 	GEN_3: 'GEN_3',
@@ -12,9 +11,18 @@ const Strategy = {
 	BREEDING: 'BREEDING',
 	POKE_RADAR: 'POKE_RADAR',
 	CHAIN_FISHING: 'CHAIN_FISHING',
+	FRIEND_SAFARI: 'FRIEND_SAFARI',
+}
+
+const StrategyOption = {
+	SHINY_DITTO: 'shinyDitto',
+	MASUDA_METHOD: 'masudaMethod',
+	SHINY_CHARM: 'shinyCharm',
+	HORDE_ENCOUNTER: 'hordeEncounter',
 }
 
 export {
 	Generation,
-	Strategy
+	Strategy,
+	StrategyOption,
 }

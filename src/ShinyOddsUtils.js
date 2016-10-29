@@ -1,4 +1,3 @@
-
 import * as Constants from './Constants'
 
 function gen2GetShinyChance_Base() {
@@ -9,7 +8,7 @@ function gen2GetShinyChance_ShinyDitto() {
   return 1/64
 }
 
-function gen2GetShinyChance_Breeding({shinyDitto}) {
+function gen2GetShinyChance_Breeding(shinyDitto) {
   return shinyDitto ? gen2GetShinyChance_ShinyDitto() : gen2GetShinyChance_Base()
 }
 
@@ -18,7 +17,7 @@ function gen2GetShinyChance(strategy, options) {
     case Constants.Strategy.WILD_ENCOUNTER:
       return gen2GetShinyChance_Base()
     case Constants.Strategy.BREEDING:
-      return gen2GetShinyChance_Breeding(options)
+      return gen2GetShinyChance_Breeding(options[Constants.StrategyOption.SHINY_DITTO])
     default:
       return 0
   }
@@ -36,7 +35,7 @@ function gen4GetShinyChance_MasudaMethod() {
   return 5/8192
 }
 
-function gen4GetShinyChance_Breeding({masudaMethod}) {
+function gen4GetShinyChance_Breeding(masudaMethod) {
   return masudaMethod ? gen4GetShinyChance_MasudaMethod() : gen4GetShinyChance_Base()
 }
 
@@ -50,7 +49,7 @@ function gen4GetShinyChance(strategy, options, streak) {
     case Constants.Strategy.WILD_ENCOUNTER:
       return gen4GetShinyChance_Base()
     case Constants.Strategy.BREEDING:
-      return gen4GetShinyChance_Breeding(options)
+      return gen4GetShinyChance_Breeding(options[Constants.StrategyOption.MASUDA_METHOD])
     case Constants.Strategy.POKE_RADAR:
       return gen4GetShinyChance_PokeRadar(streak)
     default:
@@ -70,20 +69,20 @@ function gen5GetMasudaMethodBoost(masudaMethodEnabled) {
   return masudaMethodEnabled ? 5/8192 : 0
 }
 
-function gen5GetShinyChance_WildEncounter({shinyCharm}) {
+function gen5GetShinyChance_WildEncounter(shinyCharm) {
   return gen5GetShinyChance_Base() + gen5GetShinyCharmBoost(shinyCharm)
 }
 
-function gen5GetShinyChance_Breeding({shinyCharm, masudaMethod}) {
+function gen5GetShinyChance_Breeding(shinyCharm, masudaMethod) {
   return gen5GetShinyChance_Base() + gen5GetShinyCharmBoost(shinyCharm) + gen5GetMasudaMethodBoost(masudaMethod)
 }
 
 function gen5GetShinyChance(strategy, options) {
   switch (strategy) {
     case Constants.Strategy.WILD_ENCOUNTER:
-      return gen5GetShinyChance_WildEncounter(options)
+      return gen5GetShinyChance_WildEncounter(options[Constants.StrategyOption.SHINY_CHARM])
     case Constants.Strategy.BREEDING:
-      return gen5GetShinyChance_Breeding(options)
+      return gen5GetShinyChance_Breeding(options[Constants.StrategyOption.SHINY_CHARM], options[Constants.StrategyOption.MASUDA_METHOD])
     default:
       return 0
   }
@@ -101,11 +100,11 @@ function gen6GetMasudaMethodBoost(masudaMethodEnabled) {
   return masudaMethodEnabled ? 5/4096 : 0
 }
 
-function gen6GetShinyChance_WildEncounter({shinyCharm}) {
-  return gen6GetShinyChance_Base() + gen6GetShinyCharmBoost(shinyCharm)
+function gen6GetShinyChance_WildEncounter(shinyCharm, hordeEncounter) {
+  return (gen6GetShinyChance_Base() + gen6GetShinyCharmBoost(shinyCharm)) * (hordeEncounter ? 5 : 1)
 }
 
-function gen6GetShinyChance_Breeding({shinyCharm, masudaMethod}) {
+function gen6GetShinyChance_Breeding(shinyCharm, masudaMethod) {
   return gen6GetShinyChance_Base() + gen6GetShinyCharmBoost(shinyCharm) + gen6GetMasudaMethodBoost(masudaMethod)
 }
 
@@ -113,22 +112,28 @@ function gen6GetShinyChance_PokeRadar(streak) {
   return streak >= 40 ? 1/50 : 4 * (Math.ceil(65535 / (8200 - 200 * (streak / 2 + 20))) / 65536)
 }
 
-function gen6GetShinyChance_ChainFishing(streak, {shinyCharm}) {
+function gen6GetShinyChance_ChainFishing(streak, shinyCharm) {
   // http://mrnbayoh.github.io/pkmn6gen/chain_fishing_shiny/
   let n = 1 + (shinyCharm ? 2 : 0) + (Math.min(streak, 20) * 2)
   return 1 - (Math.pow(1 - gen6GetShinyChance_Base(), n))
 }
 
+function gen6GetShinyChance_FriendSafari() {
+  return 1/512
+}
+
 function gen6GetShinyChance(strategy, options, streak) {
   switch (strategy) {
     case Constants.Strategy.WILD_ENCOUNTER:
-      return gen6GetShinyChance_WildEncounter(options)
+      return gen6GetShinyChance_WildEncounter(options[Constants.StrategyOption.SHINY_CHARM], options[Constants.StrategyOption.HORDE_ENCOUNTER])
     case Constants.Strategy.BREEDING:
-      return gen6GetShinyChance_Breeding(options)
+      return gen6GetShinyChance_Breeding(options[Constants.StrategyOption.SHINY_CHARM], options[Constants.StrategyOption.MASUDA_METHOD])
     case Constants.Strategy.POKE_RADAR:
       return gen6GetShinyChance_PokeRadar(streak)
     case Constants.Strategy.CHAIN_FISHING:
-      return gen6GetShinyChance_ChainFishing(streak, options)
+      return gen6GetShinyChance_ChainFishing(streak, options[Constants.StrategyOption.SHINY_CHARM])
+    case Constants.Strategy.FRIEND_SAFARI:
+      return gen6GetShinyChance_FriendSafari()
     default:
       return 0
   }
