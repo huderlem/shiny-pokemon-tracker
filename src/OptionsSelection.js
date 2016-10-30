@@ -11,6 +11,18 @@ class OptionsSelection extends Component {
   renderStrategies(strategies) {
     return strategies.map((strategy, i) => StrategyFactory.CreateStrategy(strategy, this.props.updateStrategy, this.props.strategy, i)) 
   }
+  renderOptions(strategies, strategyOptions, currentStrategy) {
+    if (!strategies.includes(currentStrategy)) {
+      this.props.updateStrategy(strategies[0])
+    }
+
+    return (
+      <div>
+        {this.renderStrategies(strategies)}
+        {this.renderStrategyOptions(strategyOptions)}
+      </div>
+    )
+  }
   renderGen2Options() {
     let strategies = [
       Constants.Strategy.WILD_ENCOUNTER,
@@ -21,12 +33,7 @@ class OptionsSelection extends Component {
       strategyOptions.push(Constants.StrategyOption.SHINY_DITTO)
     }
 
-    return (
-      <div>
-        {this.renderStrategies(strategies)}
-        {this.renderStrategyOptions(strategyOptions)}
-      </div>
-    )
+    return this.renderOptions(strategies, strategyOptions, this.props.strategy)
   }
   renderGen3Options() {
     let strategies = [
@@ -34,11 +41,7 @@ class OptionsSelection extends Component {
       Constants.Strategy.BREEDING,
     ]
 
-    return (
-      <div>
-        {this.renderStrategies(strategies)}
-      </div>
-    )
+    return this.renderOptions(strategies, [], this.props.strategy)
   }
   renderGen4Options() {
     let strategies = [
@@ -51,12 +54,7 @@ class OptionsSelection extends Component {
       strategyOptions.push(Constants.StrategyOption.MASUDA_METHOD)
     }
 
-    return (
-      <div>
-        {this.renderStrategies(strategies)}
-        {this.renderStrategyOptions(strategyOptions)}
-      </div>
-    )
+    return this.renderOptions(strategies, strategyOptions, this.props.strategy)
   }
   renderGen5Options() {
     let strategies = [
@@ -68,12 +66,7 @@ class OptionsSelection extends Component {
       strategyOptions.push(Constants.StrategyOption.MASUDA_METHOD)
     }
 
-    return (
-      <div>
-        {this.renderStrategies(strategies)}
-        {this.renderStrategyOptions(strategyOptions)}
-      </div>
-    )
+    return this.renderOptions(strategies, strategyOptions, this.props.strategy)
   }
   renderGen6Options() {
     let strategies = [
@@ -90,12 +83,7 @@ class OptionsSelection extends Component {
       strategyOptions.push(Constants.StrategyOption.HORDE_ENCOUNTER)
     }
 
-    return (
-      <div>
-        {this.renderStrategies(strategies)}
-        {this.renderStrategyOptions(strategyOptions)}
-      </div>
-    )
+    return this.renderOptions(strategies, strategyOptions, this.props.strategy)
   }
   render() {
     switch (this.props.generation) {
