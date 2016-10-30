@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import * as Constants from './Constants'
+import * as OptionsSettings from './OptionsSettings'
 import * as StrategyFactory from './StrategyFactory'
 import * as StrategyOptionFactory from './StrategyOptionFactory'
 
@@ -12,10 +13,6 @@ class OptionsSelection extends Component {
     return strategies.map((strategy, i) => StrategyFactory.CreateStrategy(strategy, this.props.updateStrategy, this.props.strategy, i)) 
   }
   renderOptions(strategies, strategyOptions, currentStrategy) {
-    if (!strategies.includes(currentStrategy)) {
-      this.props.updateStrategy(strategies[0])
-    }
-
     return (
       <div>
         {this.renderStrategies(strategies)}
@@ -24,58 +21,33 @@ class OptionsSelection extends Component {
     )
   }
   renderGen2Options() {
-    let strategies = [
-      Constants.Strategy.WILD_ENCOUNTER,
-      Constants.Strategy.BREEDING,
-    ]
     let strategyOptions = []
     if (this.props.strategy === Constants.Strategy.BREEDING) {
       strategyOptions.push(Constants.StrategyOption.SHINY_DITTO)
     }
 
-    return this.renderOptions(strategies, strategyOptions, this.props.strategy)
+    return this.renderOptions(OptionsSettings.GenStrategies.GEN_2, strategyOptions, this.props.strategy)
   }
   renderGen3Options() {
-    let strategies = [
-      Constants.Strategy.WILD_ENCOUNTER,
-      Constants.Strategy.BREEDING,
-    ]
-
-    return this.renderOptions(strategies, [], this.props.strategy)
+    return this.renderOptions(OptionsSettings.GenStrategies.GEN_3, [], this.props.strategy)
   }
   renderGen4Options() {
-    let strategies = [
-      Constants.Strategy.WILD_ENCOUNTER,
-      Constants.Strategy.BREEDING,
-      Constants.Strategy.POKE_RADAR,
-    ]
     let strategyOptions = []
     if (this.props.strategy === Constants.Strategy.BREEDING) {
       strategyOptions.push(Constants.StrategyOption.MASUDA_METHOD)
     }
 
-    return this.renderOptions(strategies, strategyOptions, this.props.strategy)
+    return this.renderOptions(OptionsSettings.GenStrategies.GEN_4, strategyOptions, this.props.strategy)
   }
   renderGen5Options() {
-    let strategies = [
-      Constants.Strategy.WILD_ENCOUNTER,
-      Constants.Strategy.BREEDING,
-    ]
     let strategyOptions = [Constants.StrategyOption.SHINY_CHARM]
     if (this.props.strategy === Constants.Strategy.BREEDING) {
       strategyOptions.push(Constants.StrategyOption.MASUDA_METHOD)
     }
 
-    return this.renderOptions(strategies, strategyOptions, this.props.strategy)
+    return this.renderOptions(OptionsSettings.GenStrategies.GEN_5, strategyOptions, this.props.strategy)
   }
   renderGen6Options() {
-    let strategies = [
-      Constants.Strategy.WILD_ENCOUNTER,
-      Constants.Strategy.BREEDING,
-      Constants.Strategy.POKE_RADAR,
-      Constants.Strategy.CHAIN_FISHING,
-      Constants.Strategy.FRIEND_SAFARI,
-    ]
     let strategyOptions = [Constants.StrategyOption.SHINY_CHARM]
     if (this.props.strategy === Constants.Strategy.BREEDING) {
       strategyOptions.push(Constants.StrategyOption.MASUDA_METHOD)
@@ -83,7 +55,7 @@ class OptionsSelection extends Component {
       strategyOptions.push(Constants.StrategyOption.HORDE_ENCOUNTER)
     }
 
-    return this.renderOptions(strategies, strategyOptions, this.props.strategy)
+    return this.renderOptions(OptionsSettings.GenStrategies.GEN_6, strategyOptions, this.props.strategy)
   }
   render() {
     switch (this.props.generation) {

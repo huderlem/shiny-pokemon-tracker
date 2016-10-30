@@ -7,6 +7,7 @@ import GenSelection from './GenSelection'
 import EncounterButton from './EncounterButton'
 import EncountersLabel from './EncountersLabel'
 import OptionsSelection from './OptionsSelection'
+import * as OptionsSettings from './OptionsSettings'
 import ShinyOddsInfo from './ShinyOddsInfo'
 
 class App extends Component {
@@ -54,7 +55,12 @@ class App extends Component {
         <p className="App-intro">
           Use the counter below to track your encounters.
         </p>
-        <GenSelection onClick={(newGeneration) => this.setState({generation: newGeneration})}/>
+        <GenSelection onClick={(newGeneration) => {
+          this.setState({generation: newGeneration})
+          if (!OptionsSettings.GenStrategies[newGeneration].includes(this.state.strategy)) {
+            this.setState({strategy: OptionsSettings.GenStrategies[newGeneration][0]})
+          }
+        }}/>
         <OptionsSelection
           generation={this.state.generation}
           strategy={this.state.strategy}
