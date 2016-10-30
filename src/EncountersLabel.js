@@ -11,9 +11,9 @@ class EncountersLabel extends Component {
   }
   render() {
     return (
-      <div>
-        <p className="encounters-label">Encounters:</p>
-        <input type="number" min="0" max="99999" value={this.props.count} onChange={this.onChange.bind(this)} />
+      <div className="encounters-label">
+        <label htmlFor="num-encounters">Encounters:</label>
+        <input id="num-encounters" type="number" min="0" max="99999" value={this.props.count} onChange={this.onChange.bind(this)} />
       </div>
     )
   }

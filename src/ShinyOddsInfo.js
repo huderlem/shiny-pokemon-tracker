@@ -17,7 +17,7 @@ class ShinyOddsInfo extends React.Component {
     const shinyChanceStreakLabel = this.getStreakShinyChanceLabel(this.props.generation, this.props.strategy, this.props.options, this.props.count)
 
     return (
-      <div>
+      <div className="shiny-odds-info">
         <p>Chance of Shiny Encounter: {shinyChanceLabel}</p>
         <p>Chance After {this.props.count} encounters: {shinyChanceStreakLabel}</p>
       </div>

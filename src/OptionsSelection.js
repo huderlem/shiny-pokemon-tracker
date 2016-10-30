@@ -14,9 +14,13 @@ class OptionsSelection extends Component {
   }
   renderOptions(strategies, strategyOptions, currentStrategy) {
     return (
-      <div>
-        {this.renderStrategies(strategies)}
-        {this.renderStrategyOptions(strategyOptions)}
+      <div className="options">
+        <div className="strategies">
+          {this.renderStrategies(strategies)}
+        </div>
+        <div className="strategy-options">
+          {this.renderStrategyOptions(strategyOptions)}
+        </div>
       </div>
     )
   }

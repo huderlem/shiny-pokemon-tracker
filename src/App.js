@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 
 import * as Constants from './Constants'
@@ -49,39 +48,45 @@ class App extends Component {
     return (
       <div className="App">
         <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
+          <img src="s_gyarados.png" className="App-logo" alt="logo" />
           <h1>Shiny Pokémon Tracker</h1>
         </div>
         <p className="App-intro">
           Use the counter below to track your encounters.
         </p>
-        <GenSelection
-          generation={this.state.generation}
-          onClick={(newGeneration) => {
-            this.setState({generation: newGeneration})
-            if (!OptionsSettings.GenStrategies[newGeneration].includes(this.state.strategy)) {
-              this.setState({strategy: OptionsSettings.GenStrategies[newGeneration][0]})
-            }
-        }}/>
-        <OptionsSelection
-          generation={this.state.generation}
-          strategy={this.state.strategy}
-          options={this.state.options}
-          updateStrategy={(newStrategy) => this.setState({strategy: newStrategy})}
-          updateOption={(key, value) => {
-            const newOptions = Object.assign({}, this.state.options)
-            newOptions[key] = value
-            this.setState({options: newOptions})
-          }} />
-        <EncounterButton symbol="+" onClick={() => this.addEncounters(1)} />
-        <EncounterButton symbol="-" onClick={() => this.addEncounters(-1)} />
-        <EncountersLabel count={this.state.encounters} onChange={(count) => this.setEncounters(count)} />
-        <ShinyOddsInfo
-          count={this.state.encounters}
-          generation={this.state.generation}
-          strategy={this.state.strategy}
-          options={this.state.options} />
-        <button className="reset-counter" onClick={() => this.resetEncounters()}>Reset Counter</button>
+        <div className="container">
+          <GenSelection
+            generation={this.state.generation}
+            onClick={(newGeneration) => {
+              this.setState({generation: newGeneration})
+              if (!OptionsSettings.GenStrategies[newGeneration].includes(this.state.strategy)) {
+                this.setState({strategy: OptionsSettings.GenStrategies[newGeneration][0]})
+              }
+          }}/>
+          <OptionsSelection
+            generation={this.state.generation}
+            strategy={this.state.strategy}
+            options={this.state.options}
+            updateStrategy={(newStrategy) => this.setState({strategy: newStrategy})}
+            updateOption={(key, value) => {
+              const newOptions = Object.assign({}, this.state.options)
+              newOptions[key] = value
+              this.setState({options: newOptions})
+            }} />
+          <div className="shiny-info">
+            <div className="encounter-buttons">
+              <EncounterButton symbol="+" onClick={() => this.addEncounters(1)} />
+              <EncounterButton symbol="-" onClick={() => this.addEncounters(-1)} />
+              <button className="reset-counter" onClick={() => this.resetEncounters()}>Reset</button>
+            </div>
+            <EncountersLabel count={this.state.encounters} onChange={(count) => this.setEncounters(count)} />
+            <ShinyOddsInfo
+              count={this.state.encounters}
+              generation={this.state.generation}
+              strategy={this.state.strategy}
+              options={this.state.options} />
+          </div>
+        </div>
       </div>
     );
   }
