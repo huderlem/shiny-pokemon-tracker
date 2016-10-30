@@ -6,6 +6,22 @@ const Generation = {
 	GEN_6: 'GEN_6',
 }
 
+const GenerationLabel = {
+	GEN_2: 'Gen. 2',
+	GEN_3: 'Gen. 3',
+	GEN_4: 'Gen. 4',
+	GEN_5: 'Gen. 5',
+	GEN_6: 'Gen. 6',
+}
+
+const GenerationOrder = [
+	Generation.GEN_2,
+	Generation.GEN_3,
+	Generation.GEN_4,
+	Generation.GEN_5,
+	Generation.GEN_6,
+]
+
 const Strategy = {
 	WILD_ENCOUNTER: 'WILD_ENCOUNTER',
 	BREEDING: 'BREEDING',
@@ -23,6 +39,8 @@ const StrategyOption = {
 
 export {
 	Generation,
+	GenerationLabel,
+	GenerationOrder,
 	Strategy,
 	StrategyOption,
 }

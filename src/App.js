@@ -55,11 +55,13 @@ class App extends Component {
         <p className="App-intro">
           Use the counter below to track your encounters.
         </p>
-        <GenSelection onClick={(newGeneration) => {
-          this.setState({generation: newGeneration})
-          if (!OptionsSettings.GenStrategies[newGeneration].includes(this.state.strategy)) {
-            this.setState({strategy: OptionsSettings.GenStrategies[newGeneration][0]})
-          }
+        <GenSelection
+          generation={this.state.generation}
+          onClick={(newGeneration) => {
+            this.setState({generation: newGeneration})
+            if (!OptionsSettings.GenStrategies[newGeneration].includes(this.state.strategy)) {
+              this.setState({strategy: OptionsSettings.GenStrategies[newGeneration][0]})
+            }
         }}/>
         <OptionsSelection
           generation={this.state.generation}
